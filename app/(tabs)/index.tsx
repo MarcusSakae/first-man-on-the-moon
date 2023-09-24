@@ -1,111 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { View, Text } from "react-native";
+import { runOnUI, useSharedValue } from "react-native-reanimated";
 import { ExpoWebGLRenderingContext, GLView } from "expo-gl";
+import { createWorkletContextManager } from "expo-gl/src/GLWorkletContextManager";
 import { Dimensions } from "react-native";
-import { Text, View } from "../../components/Themed";
-import { connect } from "react-redux";
-import Colors from "../../constants/Colors";
-import { runOnUI } from 'react-native-reanimated';
+import { HeightRuler } from "../../components/HeightRuler";
+import { HeightIndicator } from "../../components/HeightIndicator";
+import { useDispatch, useSelector } from "react-redux";
 
-function IndexScreen(args: any) {
-  console.log("args", args);
+const getWorkletContext = createWorkletContextManager().getContext;
+
+const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+
+export default function IndexScreen() {
+  const dispatch = useDispatch();
+  const { height } = useSelector((state: any) => state.some);
+  const shared = {
+    time: useSharedValue(0),
+  };
+
+  function render(gl: ExpoWebGLRenderingContext) {
+    "worklet";    
+    shared.time.value += 0.001;
+    gl.clearColor(0, 0, Math.sin((shared.time.value % 1) * Math.PI * 2), 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.flush();
+    gl.flushEXP();
+    gl.endFrameEXP();
+    requestAnimationFrame(() => render(gl));
+  }
+
+  function onContextCreate(gl: ExpoWebGLRenderingContext) {
+    runOnUI((contextId: number) => {
+      "worklet";
+
+      const gl = getWorkletContext(contextId)!;
+      render(gl);
+    })(gl.contextId);
+  }
+
+ 
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <GLView
-        style={{
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height - 125, // 125 is the height of the tab bar
-        }}
+        style={{ width: windowWidth, height: windowHeight - 300 }}
         enableExperimentalWorkletSupport
         onContextCreate={onContextCreate}
       />
-      <View
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          width: 50,
-          height: "100%",
-          backgroundColor: "#ffffff33",
-        }}
-      />
-      <View
-        style={{
-          position: "absolute",
-          bottom: 100,
-          right: 60,
-          width: 60,
-          paddingVertical: 5,
-          paddingHorizontal: 10,
-          height: 30,
-          backgroundColor: "#ffffff11",
-        }}
-      >
-        <Text style={{ color: Colors.dark.text }}>{args.height}m</Text>
-      </View>
+      <HeightRuler />
+      <HeightIndicator height={height} />
+      {/* <Text style={{color:"#ffffff"}}> {shared.time.value % 1}</Text> */}
     </View>
   );
 }
 
-
-function render(gl: ExpoWebGLRenderingContext
-  ) {
-  'worklet';
-  // add your WebGL code here
-}
-
-function onContextCreate(gl: ExpoWebGLRenderingContext) {
-  gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-  gl.clearColor(0.2, 0.2, 0.2, 1);
-
-  // Create vertex shader (shape & position)
-  const vert = gl.createShader(gl.VERTEX_SHADER)!;
-  gl.shaderSource(
-    vert,
-    `
-    void main(void) {
-      gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
-      gl_PointSize = 100.0;
-    }
-  `
-  );
-  gl.compileShader(vert);
-
-  // Create fragment shader (color)
-  const frag = gl.createShader(gl.FRAGMENT_SHADER)!;
-  gl.shaderSource(
-    frag,
-    `
-    void main(void) {
-      gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-    }
-  `
-  );
-  gl.compileShader(frag);
-
-  // Link together into a program
-  const program = gl.createProgram()!;
-  gl.attachShader(program, vert);
-  gl.attachShader(program, frag);
-  gl.linkProgram(program);
-  gl.useProgram(program);
-
-  gl.clear(gl.COLOR_BUFFER_BIT);
-  gl.drawArrays(gl.POINTS, 0, 1);
-
-  gl.flush();
-  gl.endFrameEXP();
-}
-
-const mapStateToProps = (state: any) => {
-  console.log("mapStateToProps", state);
-  return { height: state.some.height, speed: state.some.speed };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    setHeight: (height: number) =>
-      dispatch({ type: "height/set", payload: height }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(IndexScreen);

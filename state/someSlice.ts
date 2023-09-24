@@ -9,15 +9,9 @@ export const someSlice = createSlice({
     speed: 0,
   },
   reducers: {
-    setHeight: (state, action) => {
-      state.height = action.payload.height;
-    },
+    setHeight: (state, action) => ({ ...state, height: action.payload }),
+    increaseHeight: (state, action) => ({ ...state, height: state.height + 1 }),
   },
 });
-
-export const { setHeight } = someSlice.actions;
-
-export const height = (state: any) => state.height;
-export const speed = (state: any) => state.speed;
 
 export default someSlice.reducer;

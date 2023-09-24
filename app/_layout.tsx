@@ -4,18 +4,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
-import { Provider } from 'react-redux';
-import rootReducer from "../state/rootReducer";
+import { Provider } from "react-redux";
+import store from "../state/store";
 export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
   initialRouteName: "(tabs)",
 };
-
-const store = configureStore({
-  reducer: rootReducer
-})
-
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,10 +42,10 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={DarkTheme}>
       <Provider store={store}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-          </Stack>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        </Stack>
       </Provider>
     </ThemeProvider>
   );
