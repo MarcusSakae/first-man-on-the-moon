@@ -1,12 +1,10 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DarkTheme, ThemeProvider } from "@react-navigation/native";
-import { configureStore } from "@reduxjs/toolkit";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import store from "../state/store";
-export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
   initialRouteName: "(tabs)",
@@ -38,7 +36,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  ("");
   return (
     <ThemeProvider value={DarkTheme}>
       <Provider store={store}>

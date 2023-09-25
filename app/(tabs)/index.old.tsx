@@ -1,13 +1,11 @@
 import React from "react";
 import { ExpoWebGLRenderingContext, GLView } from "expo-gl";
 import { Dimensions } from "react-native";
-import { height, speed } from "../../state/someSlice";
 import { Text, View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import { connect } from "react-redux";
 
 function IndexScreen(args: any) {
-  console.log("args", args);
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <GLView
@@ -89,7 +87,6 @@ function onContextCreate(gl: ExpoWebGLRenderingContext) {
 }
 
 const mapStateToProps = (state: any) => {
-  console.log("mapStateToProps", state);
   return { height: state.some.height, speed: state.some.speed };
 };
 
