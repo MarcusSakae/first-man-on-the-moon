@@ -1,61 +1,94 @@
-import { useEffect, useState } from "react";
+import LottieView from "lottie-react-native";
+import React, { useCallback, useEffect, useRef } from "react";
 import { Button, StyleSheet } from "react-native";
 import Animated, {
   Easing,
-  Extrapolation,
-  interpolate,
   scrollTo,
   useAnimatedRef,
   useAnimatedScrollHandler,
-  useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
-  withRepeat,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { View, Text } from "../../components/Themed";
 
-const grassHeight = 200;
+import { View } from "../../components/Themed";
 
-const AnimatedScrollView = Animated.createAnimatedComponent(Animated.ScrollView);
+const AnimatedScrollView = Animated.createAnimatedComponent(
+  Animated.ScrollView
+);
+const tileHight = 200;
+const DRONE_SPEED = 0.2;
 
 export default function GatherScreen() {
   let ref = useAnimatedRef<Animated.ScrollView>();
+  const isScrolling = useSharedValue(false);
+  const targetY = useSharedValue(0);
   const y = useSharedValue(0);
-  
+
   useDerivedValue(() => {
-    // console.log(y.value);
     scrollTo(ref, 0, y.value, false);
+  }, [y.value]);
+
+  const greenStyles = [
+    {
+      backgroundColor: "#99dd99",
+      transform: [{ rotate: "3deg" }, { scale: 1.2 }],
+    },
+    {
+      backgroundColor: "#77cc77",
+      transform: [{ rotate: "-2deg" }, { scale: 1.2 }],
+    },
+    {
+      backgroundColor: "#66bb66",
+      transform: [{ rotate: "1deg" }, { scale: 1.2 }],
+    },
+  ];
+
+  const tiles = Array.from({ length: 100 }, (_, i) => {
+    return <View style={[styles.tiles, greenStyles[i % 3]]} key={i} />;
   });
 
-
-
-  const grass = Array.from({ length: 100 }, (_, i) => {
-    const greenStyle = [styles.green1, styles.green2, styles.green3][i % 3];
-    return (
-      <View style={{ ...styles.grass, ...greenStyle }} key={i} >
-        <Text>{i}</Text>
-      </View>
-    );
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    if (isScrolling.value) return;
+    y.value = event.contentOffset.y;
   });
 
-  const doScroll = () => {
-    // console.log(ref);
+  const playScrollAnimation = useCallback(() => {
+    targetY.value = 1000;
+    let distance = Math.abs(targetY.value - y.value);
+    isScrolling.value = true;
+    let duration = distance / DRONE_SPEED;
+    y.value = 0;
+    y.value = withTiming(targetY.value, {
+      duration,
+      easing: Easing.linear,
+    });
+    setTimeout(() => {
+      isScrolling.value = false;
+    }, duration);
+  }, []);
+
+  useEffect(() => {
+    y.value = 0;
     y.value = withTiming(1000, {
       duration: 1500,
       easing: Easing.linear,
     });
+  }, []);
+
+  const doScroll = () => {
+    playScrollAnimation();
   };
 
   return (
     <View style={styles.container}>
       <AnimatedScrollView
         ref={ref}
+        onScroll={scrollHandler}
         scrollEventThrottle={1}
         style={styles.scrollView}
       >
-        {grass.map((item, i) => {
+        {tiles.map((item, i) => {
           return (
             <Animated.View
               key={i}
@@ -72,9 +105,16 @@ export default function GatherScreen() {
           );
         })}
       </AnimatedScrollView>
-      {/* {grass} */}
+      {/* {tiles} */}
       <View style={{ flexGrow: 1, backgroundColor: "#333333" }} />
       <Button title="Scroll" onPress={() => doScroll()} />
+      <View style={styles.droneView}>
+        <LottieView
+          autoPlay
+          style={styles.drone}
+          source={require("../../assets/lottie/drone3.json")}
+        />
+      </View>
     </View>
   );
 }
@@ -84,26 +124,26 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "50%",
     backgroundColor: "#333333",
+    position: "relative",
   },
   scrollView: {
     height: 0,
   },
-
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  grass: {
+  tiles: {
     width: "100%",
-    height: grassHeight,
+    height: tileHight,
   },
-  green1: {
-    backgroundColor: "#33cc33",
+  droneView: {
+    width: "100%",
+    height: 100,
+    position: "absolute",
+    backgroundColor: "transparent",
+    top: 100,
+    left: 0,
+    justifyContent: "center",
+    flexDirection: "row",
   },
-  green2: {
-    backgroundColor: "#33aa33",
-  },
-  green3: {
-    backgroundColor: "#339933",
+  drone: {
+    width: 300,
   },
 });

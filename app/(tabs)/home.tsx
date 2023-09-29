@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
-import { runOnUI, useSharedValue } from "react-native-reanimated";
 import { ExpoWebGLRenderingContext, GLView } from "expo-gl";
 import { createWorkletContextManager } from "expo-gl/src/GLWorkletContextManager";
-import { Dimensions } from "react-native";
-import { HeightRuler } from "../../components/HeightRuler";
-import { HeightIndicator } from "../../components/HeightIndicator";
+import React from "react";
+import { Dimensions, View } from "react-native";
+import { runOnUI, useSharedValue } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
+import { HeightIndicator } from "../../components/HeightIndicator";
+import { HeightRuler } from "../../components/HeightRuler";
 
 const getWorkletContext = createWorkletContextManager().getContext;
 
