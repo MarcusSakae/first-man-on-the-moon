@@ -1,9 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
+import { Image, Pressable, StyleSheet, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
-import { View } from "../../components/Themed";
+import { Text, View } from "../../components/Themed";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -15,13 +15,16 @@ function TabBarIcon(props: {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
-export default function TabLayout() {
+const homePng = require("../../assets/images/home.png");
+
+export default function BuildScreen() {
   const colorScheme = useColorScheme();
 
   return (
     <>
       <Tabs
         screenOptions={{
+          headerShown: false,
           tabBarActiveTintColor: Colors[colorScheme ?? "dark"].tint,
         }}
       >
@@ -32,27 +35,42 @@ export default function TabLayout() {
           name="home"
           options={{
             title: "Home",
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-            headerRight: () => (
-              <Link href="/modal" asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <FontAwesome
-                      name="info-circle"
-                      size={25}
-                      color={Colors[colorScheme ?? "light"].text}
-                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                    />
-                  )}
-                </Pressable>
-              </Link>
+            tabBarItemStyle: { backgroundColor: "#14110f" },
+            tabBarIcon: () => <Image source={homePng} style={[styles.icon]} />,
+          }}
+          />
+        <Tabs.Screen
+          name="construction"
+          options={{
+            title: "Build",
+            tabBarItemStyle: { backgroundColor: "#11192a" },
+            tabBarIcon: ({ color }) => (
+              <Image
+              source={require("../../assets/images/hammer.png")}
+              style={[styles.icon, { width: 24, height: 24 }]}
+              />
+              ),
+            }}
+            />
+
+        <Tabs.Screen
+          name="astronauts"
+          options={{
+            title: "Astronauts",
+            tabBarItemStyle: { backgroundColor: "#010101" },
+            tabBarIcon: ({ color }) => (
+              <Image
+                source={require("../../assets/images/astronaut2.png")}
+                style={styles.icon}
+              />
             ),
           }}
         />
+
         <Tabs.Screen
-          name="build"
+          name="work"
           options={{
-            title: "Build",
+            title: "Work",
             tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           }}
         />
@@ -70,28 +88,15 @@ export default function TabLayout() {
             tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           }}
         />
-        <Tabs.Screen
-          name="rivals"
-          options={{
-            title: "Rivals",
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="astronauts"
-          options={{
-            title: "Astronauts",
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="work"
-          options={{
-            title: "Work",
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          }}
-        />
       </Tabs>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 32,
+    height: 32,
+    resizeMode: "contain",
+  },
+});

@@ -1,31 +1,40 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
+import { Text, View } from "../../components/Themed";
+import { FlashList } from "@shopify/flash-list";
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+const DATA = [{ name: "Astro boy" }, { name: "hubbelboof" }];
+
+function Item({ name }: { name: string }) {
+  return (
+    <View style={styles.item}>
+      <Text style={styles.title}>{name}</Text>
+    </View>
+  );
+}
 
 export default function AstronautsScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Astronauts</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/astronauts.tsx" />
-    </View>
+    <FlashList
+      data={DATA}
+      renderItem={({ item }) => <Item name={item.name} />}
+      estimatedItemSize={200}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 20,
+  },
+  item: {
+    backgroundColor: "#f9c2ff",
+    height: 200,
+    justifyContent: "center",
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    fontSize: 32,
   },
 });
