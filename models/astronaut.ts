@@ -22,6 +22,7 @@ export interface Skills {
   piloting: number;
   fitness: number;
 }
+
 export interface Astronaut {
   id: string;
   name: string;

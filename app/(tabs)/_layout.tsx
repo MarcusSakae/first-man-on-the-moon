@@ -25,6 +25,7 @@ export default function BuildScreen() {
       <Tabs
         screenOptions={{
           headerShown: false,
+          tabBarItemStyle: styles.tabline,
           tabBarActiveTintColor: Colors[colorScheme ?? "dark"].tint,
         }}
       >
@@ -35,33 +36,38 @@ export default function BuildScreen() {
           name="home"
           options={{
             title: "Home",
-            tabBarItemStyle: { backgroundColor: "#14110f" },
-            tabBarIcon: () => <Image source={homePng} style={[styles.icon]} />,
+            tabBarItemStyle: { ...styles.tabline, backgroundColor: "#101a29" },
+            tabBarIcon: () => (
+              <Image
+                source={homePng}
+                style={[styles.icon, { width: 24, height: 24 }]}
+              />
+            ),
           }}
-          />
+        />
         <Tabs.Screen
           name="construction"
           options={{
             title: "Build",
-            tabBarItemStyle: { backgroundColor: "#11192a" },
+            tabBarItemStyle: { ...styles.tabline, backgroundColor: "#14110f" },
             tabBarIcon: ({ color }) => (
               <Image
-              source={require("../../assets/images/hammer.png")}
-              style={[styles.icon, { width: 24, height: 24 }]}
+                source={require("../../assets/images/hammer.png")}
+                style={[styles.icon, { width: 24, height: 24 }]}
               />
-              ),
-            }}
-            />
+            ),
+          }}
+        />
 
         <Tabs.Screen
           name="astronauts"
           options={{
             title: "Astronauts",
-            tabBarItemStyle: { backgroundColor: "#010101" },
+            tabBarItemStyle: { ...styles.tabline, backgroundColor: "#010101" },
             tabBarIcon: ({ color }) => (
               <Image
                 source={require("../../assets/images/astronaut2.png")}
-                style={styles.icon}
+                style={[styles.icon, { width: 24, height: 24 }]}
               />
             ),
           }}
@@ -98,5 +104,9 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     resizeMode: "contain",
+  },
+  tabline: {
+    borderTopColor: Colors.primary,
+    borderTopWidth: 1,
   },
 });

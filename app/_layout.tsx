@@ -4,7 +4,7 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 import store from "../state/store";
 
 export const unstable_settings = {
@@ -36,12 +36,10 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-
-
 function RootLayoutNav() {
   return (
     <ThemeProvider value={DarkTheme}>
-       <StatusBar hidden={true} />
+      <StatusBar hidden={true} />
       <Provider store={store}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
