@@ -4,6 +4,7 @@ import { StyleSheet, useColorScheme } from "react-native";
 import { DrawerButton } from "../../../components/DrawerButton";
 import { View } from "../../../components/Themed";
 import Colors from "../../../constants/Colors";
+import GlobalStyles from "../../../components/GlobalStyles";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -27,7 +28,7 @@ export default function TabLayout() {
         }}
         tabBar={({ state, navigation }) => {
           return (
-            <View style={styles.navContainer}>
+            <View style={GlobalStyles.navContainer}>
               {state.routeNames
                 .filter((n) => n !== "index")
                 .map((route) => (
@@ -46,21 +47,11 @@ export default function TabLayout() {
         {/* https://github.com/expo/router/issues/428 */}
         <Tabs.Screen name="index" options={{ href: null }} />
         <Tabs.Screen name="roster" options={{ title: "Roster" }} />
-        <Tabs.Screen name="forhire" options={{ title: "Available candidates" }} />
+        <Tabs.Screen
+          name="forhire"
+          options={{ title: "Available candidates" }}
+        />
       </Tabs>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  navContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: Colors.secondary,
-    height: 160,
-    width: "100%",
-    right: 0,
-  },
-});

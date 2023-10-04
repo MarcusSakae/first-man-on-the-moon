@@ -5,12 +5,13 @@ import Colors from "../constants/Colors";
 
 export function StyledSlider(props: {
   text: string;
+  value: number;
   onValueChange: (value: number) => void;
 }) {
   return (
     <>
       <Slider
-        value={0}
+        value={props.value}
         minimumValue={0}
         maximumValue={4}
         step={1}

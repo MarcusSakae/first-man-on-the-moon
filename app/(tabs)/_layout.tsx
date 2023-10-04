@@ -16,6 +16,8 @@ function TabBarIcon(props: {
 }
 
 const homePng = require("../../assets/images/home.png");
+const hammerPng = require("../../assets/images/hammer.png");
+const astrosPng = require("../../assets/images/astronaut2.png");
 
 export default function BuildScreen() {
   const colorScheme = useColorScheme();
@@ -37,12 +39,7 @@ export default function BuildScreen() {
           options={{
             title: "Home",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#101a29" },
-            tabBarIcon: () => (
-              <Image
-                source={homePng}
-                style={[styles.icon, { width: 24, height: 24 }]}
-              />
-            ),
+            tabBarIcon: () => <Image source={homePng} style={styles.icon} />,
           }}
         />
         <Tabs.Screen
@@ -50,48 +47,42 @@ export default function BuildScreen() {
           options={{
             title: "Build",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#14110f" },
-            tabBarIcon: ({ color }) => (
-              <Image
-                source={require("../../assets/images/hammer.png")}
-                style={[styles.icon, { width: 24, height: 24 }]}
-              />
-            ),
+            tabBarIcon: () => <Image source={hammerPng} style={styles.icon} />,
           }}
         />
 
         <Tabs.Screen
           name="astronauts"
           options={{
+            href: null,
             title: "Astronauts",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#010101" },
-            tabBarIcon: ({ color }) => (
-              <Image
-                source={require("../../assets/images/astronaut2.png")}
-                style={[styles.icon, { width: 24, height: 24 }]}
-              />
-            ),
+            tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
           }}
         />
 
         <Tabs.Screen
-          name="work"
+          name="economy"
           options={{
-            title: "Work",
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+            href: null,
+            title: "Economy",
+            tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
           }}
         />
         <Tabs.Screen
           name="gather"
           options={{
+            href: null,
             title: "Gather",
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+            tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
           }}
         />
         <Tabs.Screen
           name="research"
           options={{
+            href: null,
             title: "Research",
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+            tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
           }}
         />
       </Tabs>
@@ -101,8 +92,8 @@ export default function BuildScreen() {
 
 const styles = StyleSheet.create({
   icon: {
-    width: 32,
-    height: 32,
+    width: 24,
+    height: 24,
     resizeMode: "contain",
   },
   tabline: {

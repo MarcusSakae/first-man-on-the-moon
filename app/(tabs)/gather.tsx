@@ -110,9 +110,12 @@ export default function GatherScreen() {
       <Button title="Scroll" onPress={() => doScroll()} />
       <View style={styles.droneView}>
         <LottieView
-          autoPlay
+          autoPlay={true}
+          loop={true}
+          useNativeLooping={true}
+          onAnimationLoop={() => console.log("loop")}
           style={styles.drone}
-          source={require("../../assets/lottie/drone3.json")}
+          source={require("../../assets/lottie/rocket.json")}
         />
       </View>
     </View>

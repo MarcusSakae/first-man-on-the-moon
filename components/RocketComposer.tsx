@@ -6,6 +6,7 @@ import { StyledButton } from "../components/StyledButton";
 import Colors from "../constants/Colors";
 import { StyledRangeSlider } from "../components/StyledRangeSlider";
 import { useState } from "react";
+import GlobalStyles from "./GlobalStyles";
 
 interface RocketSize {
   label: string;
@@ -19,13 +20,16 @@ const rocketSizes: RocketSize[] = [
   { label: "Huge", style: { height: "100%", top: "0%" } },
 ];
 export default function RocketComposer(props: { onCommit: () => void }) {
-  const [size, setSize] = useState<RocketSize>(rocketSizes[0]);
+  const [size, setSize] = useState<RocketSize>(rocketSizes[4]);
   const [selectedMaterial, setSelectedMaterial] = useState();
 
   return (
     <ImageBackground
       source={require("../assets/images/blueprint.png")}
-      style={styles.contentContainer}
+      style={[
+        GlobalStyles.contentContainer,
+        { flexDirection: "row", justifyContent: "flex-end" },
+      ]}
       resizeMode="contain"
       imageStyle={[styles.bgImage, size.style]}
     >
@@ -33,6 +37,7 @@ export default function RocketComposer(props: { onCommit: () => void }) {
         {/* SIZE  (custom margin on first title only) */}
         <Text style={[styles.title, { marginTop: -10 }]}>SIZE</Text>
         <StyledSlider
+        value={4}
           onValueChange={(value) => setSize(rocketSizes[value])}
           text={size.label}
         />
@@ -51,6 +56,7 @@ export default function RocketComposer(props: { onCommit: () => void }) {
         {/* MATERIAL */}
         <Text style={[styles.title]}>WALL THICKNESS</Text>
         <StyledSlider
+          value={4}
           onValueChange={(value) => setSize(rocketSizes[value])}
           text={size.label}
         />
@@ -70,14 +76,6 @@ export default function RocketComposer(props: { onCommit: () => void }) {
 }
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    backgroundColor: Colors.secondary,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    padding: 10,
-    paddingBottom: 0,
-    height: "100%",
-  },
   formContainer: {
     width: "58%",
     backgroundColor: "transparent",
