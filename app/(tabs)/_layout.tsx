@@ -18,6 +18,7 @@ function TabBarIcon(props: {
 const homePng = require("../../assets/images/home.png");
 const hammerPng = require("../../assets/images/hammer.png");
 const astrosPng = require("../../assets/images/astronaut2.png");
+const economyPng = require("../../assets/images/economy1.png");
 
 export default function BuildScreen() {
   const colorScheme = useColorScheme();
@@ -64,9 +65,9 @@ export default function BuildScreen() {
         <Tabs.Screen
           name="economy"
           options={{
-            href: null,
             title: "Economy",
-            tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
+            tabBarItemStyle: { ...styles.tabline, backgroundColor: "#072b4d" },
+            tabBarIcon: () => <Image source={economyPng} style={styles.icon} />,
           }}
         />
         <Tabs.Screen

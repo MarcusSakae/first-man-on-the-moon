@@ -1,25 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Building, BuildingSlot } from "../models/building";
-import { API_URL } from "@env";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import Toast from "react-native-toast-message";
+import { apiFetch } from "../utils/client";
 
 export const fetchBuildings = createAsyncThunk(
   "buildings/fetch",
-  async (_thunkAPI) => {
-    let url = `${API_URL}/buildings`;
-    console.log("url", url);
-    let response;
+  async (_: void, { dispatch }) => {
     try {
-      response = await fetch(url);
+      dispatch({ type: "loading/startLoading" });
+      let response = await apiFetch(`/buildings`);
+      return response.json();
     } catch (e) {
-      console.log("error", e);
+      console.log("erro", e);
+      Toast.show({
+        type: "error",
+        text1: "Error fetching buildings",
+        text2: "Please try again later",
+      });
+    } finally {
+      dispatch({ type: "loading/stopLoading" });
     }
-    if (!response) {
-      throw new Error("no response");
-    }
-    console.log("fetchBuildings", response.status);
-    response.json().then((data) => console.log("building", data));
-    return response.json();
   }
 );
 
@@ -28,13 +29,18 @@ const buildingsSlice = createSlice({
   initialState: {
     buildingSlots: [] as BuildingSlot[],
     availableBuildings: [] as Building[],
+    isLoading: false,
   },
   reducers: {},
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(fetchBuildings.pending, (state, action) => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchBuildings.fulfilled, (state, action) => {
-      console.log("action.payload", action.payload);
-      state.buildingSlots.push(action.payload);
+      if (action.payload) {
+        state.buildingSlots.push(action.payload);
+        state.isLoading = false;
+      }
     });
   },
 });

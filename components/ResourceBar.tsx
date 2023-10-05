@@ -1,14 +1,16 @@
+import { useEffect } from "react";
+import { StyleSheet } from "react-native";
 import AnimatedNumber from "react-native-animated-number";
 import { useDispatch, useSelector } from "react-redux";
 import Colors from "../constants/Colors";
-import { RootState } from "../state/store";
-import { Text, View } from "./Themed";
-import { StyleSheet } from "react-native";
-import { useEffect } from "react";
 import { incomeTick } from "../state/fundsSlice";
+import { RootState } from "../state/store";
+import LoadingIcon from "./LoadingIcon";
+import { View } from "./Themed";
 
 export default function ResourceBar() {
   const dollars = useSelector((state: RootState) => state.funds.dollars);
+
   const dispatch = useDispatch();
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,7 +21,7 @@ export default function ResourceBar() {
 
   return (
     <View style={styles.resourceBar}>
-      <Text></Text>
+      <LoadingIcon />
       <AnimatedNumber
         style={styles.text}
         formatter={(v) => `$${v}`}

@@ -1,5 +1,3 @@
-
-
 /**
  * Types
  */
@@ -19,6 +17,7 @@ export interface Building {
   timeMultiplier?: number;
   upgrades: Building[];
 }
+
 export interface BuildingSlot {
   id: string;
   building?: Building;
@@ -27,5 +26,4 @@ export interface BuildingSlot {
 /**
  * Initial building slots
  */
-
 export const buildings: Building[] = [];

@@ -19,5 +19,6 @@ export default {
   primary: "#f2d031",
   primaryDark: "#caa80d",
   secondary: "#0f1e37",
+  secondaryLight: "#1f3f73",
   secondaryDark: "#0a1323",
 };

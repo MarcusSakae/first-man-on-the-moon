@@ -4,8 +4,10 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import Toast from "react-native-toast-message";
 import { Provider } from "react-redux";
 import ResourceBar from "../components/ResourceBar";
+import { toastConfig } from "../components/ToastConfig";
 import store from "../state/store";
 
 export const unstable_settings = {
@@ -47,6 +49,7 @@ function RootLayoutNav() {
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: "modal" }} />
         </Stack>
+        <Toast position="bottom" config={toastConfig} onPress={Toast.hide} />
       </Provider>
     </ThemeProvider>
   );

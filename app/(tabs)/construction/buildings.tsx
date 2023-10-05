@@ -3,21 +3,23 @@ import { Image, Pressable, ScrollView, StyleSheet } from "react-native";
 import GlobalStyles from "../../../components/GlobalStyles";
 import { Text, View } from "../../../components/Themed";
 import Colors from "../../../constants/Colors";
-import { BuildingSlot, buildings } from "../../../models/building";
-
+import { BuildingSlot } from "../../../models/building";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../state/store";
 
 const pngs: Record<string, any> = {
   launchpad: require("../../../assets/images/launchpad.png"),
 };
 
 export default function BuildingsScreen() {
+  const buildingSlots = useSelector((state: RootState) => state.buildings.buildingSlots);    
   const [selected, setSelected] = useState<BuildingSlot>();
   const selectSlot = (pressedSlot: BuildingSlot) => {
     if (selected && selected.id === pressedSlot.id)
       return setSelected(undefined);
     setSelected(pressedSlot);
   };
-  
+
   return (
     <View style={[GlobalStyles.contentContainer, { paddingHorizontal: 0 }]}>
       <Text style={[GlobalStyles.title, { paddingHorizontal: 10 }]}>
@@ -28,12 +30,12 @@ export default function BuildingsScreen() {
         contentContainerStyle={styles.scroll}
       >
         <View style={[styles.gridContainer]}>
-          {/* {buildingSlots.map((slot) => (
+          {buildingSlots.map((slot) => (
             <Pressable
               key={slot.id}
               style={[
                 styles.buildingSlot,
-                slot.building === "excavate" && styles.excavate,
+                slot.building && slot.building.name === "excavate" && styles.excavate,
                 selected?.id === slot.id && styles.selected,
               ]}
               onPress={() => selectSlot(slot)}
@@ -41,15 +43,15 @@ export default function BuildingsScreen() {
               {slot.building && (
                 <View>
                   <Image
-                    source={pngs[slot.building]}
+                    source={pngs[slot.building.name]}
                     style={styles.buildingIcon}
                   />
-                  <Text style={styles.buildingIconText}>{slot.building}</Text>
+                  <Text style={styles.buildingIconText}>{slot.building.label}</Text>
                 </View>
               )}
               {!slot.building && <Text style={styles.addText}>+</Text>}
             </Pressable>
-          ))} */}
+          ))}
         </View>
       </ScrollView>
 
