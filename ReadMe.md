@@ -46,13 +46,13 @@
 - astronaut talents
 
 ## first & most important
-- buy basement, unlock astronauts tab
 - get data from API                        - OK
+- toast when unlocking things              - Ok
+- error on bad/no api response             - Ok for now
+- Upload api to droplet                    - OK
+- buy basement, unlock astronauts tab
+- show masked rocket progress           
 - animate rocket launch, shake on launch
-- toast when unlocking things              - Ok-ish
-- show masked rocket progress
-- error on bad/no api response             - Ok-ish
-- Upload api to droplet
 
 ## second
 - save/load when app is closed/opened

@@ -21,7 +21,7 @@ impl Building {
     pub fn new(label: &str, description: &str) -> Self {
         Self {
             id: uuid::Uuid::new_v4().to_string(),
-            name: label.clone().trim().to_ascii_lowercase(),
+            name: label.trim().to_ascii_lowercase(),
             label: label.to_string(),
             description: description.to_string(),
             cost: vec![],
