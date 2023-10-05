@@ -15,3 +15,4 @@ tower-http = { version = "0.4.4", features = ["cors", "trace"] }
 uuid = { version = "1.4.1", features = ["v4", "serde"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+darkbird = "6.1.8"

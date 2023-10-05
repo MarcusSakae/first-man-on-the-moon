@@ -38,7 +38,7 @@ const buildingsSlice = createSlice({
     });
     builder.addCase(fetchBuildings.fulfilled, (state, action) => {
       if (action.payload) {
-        state.buildingSlots.push(action.payload);
+        state.buildingSlots.push(...action.payload);
         state.isLoading = false;
       }
     });

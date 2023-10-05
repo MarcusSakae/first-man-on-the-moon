@@ -1,5 +1,9 @@
-use crate::{health_check::health_checker_handler, trace_middleware::add_trace_layer};
-use axum::{routing::get, Extension, Router};
+use crate::{health_check::health_checker_handler, trace_middleware::add_trace_layer, user::User};
+use axum::{
+    routing::{get, post},
+    Extension, Router,
+};
+use darkbird::{Options, Storage, StorageType};
 use session::model::SessionInner;
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -10,6 +14,9 @@ mod buildings;
 mod health_check;
 mod session;
 mod trace_middleware;
+mod user;
+
+pub type StorageExt = Extension<Arc<Storage<String, User>>>;
 
 #[tokio::main]
 async fn main() {
@@ -22,8 +29,13 @@ async fn main() {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    // Init game session
+    // Init layers
     let state_layer = Extension(Arc::new(Mutex::new(SessionInner::default())));
+    let storage_layer = Extension(Arc::new(
+        Storage::<String, User>::open(Options::new(".", "storage", 1000, StorageType::RamCopies, true))
+            .await
+            .unwrap(),
+    ));
 
     // Setup routes
     let mut app = Router::new()
@@ -32,6 +44,9 @@ async fn main() {
         .route("/api/astrounauts", get(astronauts::list))
         .route("/api/session", get(session::endpoints::get))
         .route("/api/session/generate", get(session::endpoints::generate))
+        .route("/api/user/load", get(user::endpoints::load))
+        .route("/api/user/save", post(user::endpoints::save))
+        .layer(storage_layer)
         .layer(state_layer);
 
     app = add_trace_layer(app);

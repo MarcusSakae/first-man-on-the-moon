@@ -5,14 +5,18 @@ import { API_URL } from "@env";
  * Returns
  */
 export async function apiFetch(
-  url: string,
+  endpoint: string,
   options: RequestInit = {},
   timeout = 5000
 ): Promise<any> {
+  console.log("API_URL", API_URL + endpoint);
   return Promise.race([
-    fetch(API_URL + url, options),
+    fetch(API_URL + endpoint, options),
     new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("timeout")), timeout)
+      setTimeout(
+        () => reject(new Error(`timeout ${API_URL + endpoint}`)),
+        timeout
+      )
     ),
   ]);
 }
