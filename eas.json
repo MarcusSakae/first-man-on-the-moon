@@ -18,7 +18,11 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "API_URL": "http://159.223.240.17:8000/api"
+      }
+    }
   },
   "submit": {
     "production": {}

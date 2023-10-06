@@ -6,6 +6,9 @@ import Colors from "../../../constants/Colors";
 import { BuildingSlot } from "../../../models/building";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
+import { StyledButton } from "../../../components/StyledButton";
+import { Picker } from "@react-native-picker/picker";
+import Toast from "react-native-toast-message";
 
 const pngs: Record<string, any> = {
   house: require("../../../assets/images/isometric-house.png"),
@@ -84,6 +87,27 @@ export default function BuildingsScreen() {
                   </Text>
                 </View>
               )}
+            </View>
+            <View style={{flexDirection:"row"}}>
+              <Picker
+                style={{
+                  color: "white",
+                  backgroundColor: "rgba(255,255,255,0.2)",
+                }}
+                selectedValue={"selectedMaterial"}
+                onValueChange={(value) => {}}
+              >
+                <Picker.Item label="Upgrades" value="blueprint" />
+              </Picker>
+
+              <StyledButton
+                text="Upgrade"
+                onPress={() =>
+                  Toast.show({
+                    text1: "Astronauts",
+                  })
+                }
+              />
             </View>
           </View>
         </View>

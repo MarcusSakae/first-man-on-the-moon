@@ -18,43 +18,27 @@
     [link](https://github.com/MarcusSakae/first-man-on-the-moon/blob/ff46bd4c4930af44e91b34d486259f3c0ba17fc2/app/_layout.tsx#L18-L21)
 
 
-## Currently used 3rd party modules that are not on the expo-list:
+## Ytterligare en valfri extern modul:
 - react-redux (@reduxjs/toolkit, etx)
-- react-native-animated-number
-- react-native-dotenv
-- react-native-uuid
-- react-native-assets/slider  (not the expo one)
-- react-native-toast-message
+    [link](https://github.com/MarcusSakae/first-man-on-the-moon/blob/ff46bd4c4930af44e91b34d486259f3c0ba17fc2/state/store.ts)
 
-## TODO:
-- Preview rocket styles
-- Show rocket progress as masked image
-- Progress rocket construction
-- animate rocket launch
+## Lista över genomförda krav:
 
-- buy buildings
-- unlocking tabs
-- toasts/achievements/notifications?
-- gathering (geology)
-- mining
-- load/save from api
-- research tab
+### Krav för godkänt:
 
+- [x] 1. Projektet använder minst 4 stycken RN-komponenter och minst 4 stycken Expo
+komponenter.
+- [x] 2. De utvalda komponenterna MÅSTE antecknas i README filen tillsammans med en
+lista över genomförda krav.
+- [x] 3. React Navigation används för att skapa en bättre upplevelse i appen.
+- [x] 4. Git & GitHub har använts
+- [x] 5. Projektmappen innehåller en README.md fil - (läs ovan för mer info)
+- [x] 6. Uppgiften lämnas in i tid!
+- [x] 7. Muntlig presentation är genomförd
 
+### Krav för väl godkänt:
 
-## Maybe later
-- buy upgrades??
-- astronaut talents
-
-## first & most important
-- get data from API                        - OK
-- toast when unlocking things              - Ok
-- error on bad/no api response             - Ok for now
-- Upload api to droplet                    - OK
-- buy basement, unlock astronauts tab
-- show masked rocket progress           
-- animate rocket launch, shake on launch
-
-## second
-- save/load when app is closed/opened
-- model rocket (use triangle pyramid for now?)
+- [x] 1. Alla punkter för godkänt är uppfyllda
+- [x] 2. Ytterligare en valfri extern modul används i projektet.
+- [x] 3. Appen ska prata med ett Web-API för att hämta data.
+- [x] 4. Appen ska laseras på en Appstore (Deadline samma dag som kursen slutar)

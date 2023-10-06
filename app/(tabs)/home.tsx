@@ -23,7 +23,7 @@ gsap.registerPlugin(CustomEase);
 
 let model = { position: { y: 0 } };
 let sceneColor = new Color(0, 0, 0);
-export default function IndexScreen() {
+export default function HomeScreen() {
   let [altitude, setAltitude] = useState(0);
   const launch = () => {
     model.position.y = 0;

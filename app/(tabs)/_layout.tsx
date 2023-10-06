@@ -55,7 +55,6 @@ export default function BuildScreen() {
         <Tabs.Screen
           name="astronauts"
           options={{
-            href: null,
             title: "Astronauts",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#010101" },
             tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
@@ -73,7 +72,6 @@ export default function BuildScreen() {
         <Tabs.Screen
           name="gather"
           options={{
-            href: null,
             title: "Gather",
             tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
           }}
