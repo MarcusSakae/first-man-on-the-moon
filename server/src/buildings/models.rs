@@ -21,7 +21,7 @@ impl Building {
     pub fn new(label: &str, description: &str) -> Self {
         Self {
             id: uuid::Uuid::new_v4().to_string(),
-            name: label.trim().to_ascii_lowercase(),
+            name: label.to_ascii_lowercase().replace(" ", ""),
             label: label.to_string(),
             description: description.to_string(),
             cost: vec![],
@@ -48,4 +48,12 @@ impl Building {
 pub struct BuildingSlot {
     pub id: String,
     pub building: Option<Building>,
+}
+impl BuildingSlot {
+    pub fn new(building: Option<Building>) -> Self {
+        Self {
+            id: uuid::Uuid::new_v4().to_string(),
+            building: building,
+        }
+    }
 }

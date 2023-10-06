@@ -1,36 +1,44 @@
-use crate::{buildings::default_buildings, session::Session, StorageExt};
-use axum::{response::IntoResponse, Extension, Json};
+use crate::{
+    buildings::{default_buildings, BuildingSlot},
+    StorageExt,
+};
+use axum::{extract::Path, response::IntoResponse, Extension, Json};
 use serde_json::json;
-use uuid::Uuid;
 
-use super::User;
+use super::UserData;
 
-macro_rules! lock_session {
-    ($session:expr) => {
-        $session.try_lock().map_err(|_| {
-            return Json(serde_json::json!({"error": "Could not lock session"}));
-        })
-        .unwrap()
-    }
-}
+pub async fn load(Path(device_id): Path<String>, Extension(storage): StorageExt) -> impl IntoResponse {
+    let user_data = match storage.lookup(&device_id) {
+        Some(user_data) => user_data.value().to_owned(),
+        None => {
+            let mut user_data = UserData::new(&device_id);
+            user_data.building_slots = default_buildings()
+                .iter()
+                .map(|b| BuildingSlot::new(Some(b.to_owned())))
+                .collect();
 
-pub async fn load(Extension(storage): StorageExt) -> impl IntoResponse {
-    let id = "aaa".to_string();
-    match storage.lookup(&id) {
-        Some(user) => {
-            let a = user.value();
-            Json(json!(a))
+            // add a few empty slots, keep the excavator last
+            for _ in 1..5 {
+                user_data
+                    .building_slots
+                    .insert(user_data.building_slots.len() - 1, BuildingSlot::new(None));
+            }
+
+            storage.insert(device_id.clone(), user_data.clone()).await.unwrap();
+            user_data
         }
-        None => Json(json!({"error": "Could not find user"})),
-    }
+    };
+    Json(user_data)
 }
 
-pub async fn save(Extension(session): Extension<Session>, Extension(storage): StorageExt) -> impl IntoResponse {
-    let mut session = lock_session!(session);
+pub async fn save(
+    Path(device_id): Path<String>,
+    Extension(storage): StorageExt,
+    Json(user_data): Json<UserData>,
+) -> impl IntoResponse {
+    // let mut session = lock_session!(session);
 
-    storage.insert("aaa".to_string(), User::new("sometihng")).await.unwrap();
+    storage.insert(device_id, user_data).await.unwrap();
 
-    session.id = Uuid::new_v4().to_string();
-    session.available_buildings = default_buildings();
-    Json(json!({ "message": "New game session generated!", "session": session.id}))
+    Json(json!({ "message": "saved"}))
 }

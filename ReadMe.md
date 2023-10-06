@@ -4,6 +4,7 @@
 - react-native-reanimated 
 - @shopify/flash-list
 - expo-gl
+- expo-device
 
 
 ## built-in (I think? doesn't count?)

@@ -12,6 +12,7 @@ const pngs: Record<string, any> = {
   buildings: require("../assets/images/buildings.png"),
   forhire: require("../assets/images/forhire.png"),
   roster: require("../assets/images/roster.png"),
+  launch: require("../assets/images/roster.png"),
 };
 
 export function DrawerButton(props: {

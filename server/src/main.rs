@@ -1,8 +1,6 @@
-use crate::{health_check::health_checker_handler, trace_middleware::add_trace_layer, user::User};
-use axum::{
-    routing::{get, post},
-    Extension, Router,
-};
+use crate::{health_check::health_checker_handler, trace_middleware::add_trace_layer, user::UserData};
+use axum::routing::{get, post};
+use axum::{Extension, Router};
 use darkbird::{Options, Storage, StorageType};
 use session::model::SessionInner;
 use std::sync::Arc;
@@ -15,8 +13,9 @@ mod health_check;
 mod session;
 mod trace_middleware;
 mod user;
+mod lockmacro;
 
-pub type StorageExt = Extension<Arc<Storage<String, User>>>;
+pub type StorageExt = Extension<Arc<Storage<String, UserData>>>;
 
 #[tokio::main]
 async fn main() {
@@ -32,7 +31,7 @@ async fn main() {
     // Init layers
     let state_layer = Extension(Arc::new(Mutex::new(SessionInner::default())));
     let storage_layer = Extension(Arc::new(
-        Storage::<String, User>::open(Options::new(".", "storage", 1000, StorageType::RamCopies, true))
+        Storage::<String, UserData>::open(Options::new(".", "storage", 1000, StorageType::RamCopies, true))
             .await
             .unwrap(),
     ));
@@ -44,8 +43,8 @@ async fn main() {
         .route("/api/astrounauts", get(astronauts::list))
         .route("/api/session", get(session::endpoints::get))
         .route("/api/session/generate", get(session::endpoints::generate))
-        .route("/api/user/load", get(user::endpoints::load))
-        .route("/api/user/save", post(user::endpoints::save))
+        .route("/api/user/load/:device_id", get(user::endpoints::load))
+        .route("/api/user/save/:device_id", post(user::endpoints::save))
         .layer(storage_layer)
         .layer(state_layer);
 

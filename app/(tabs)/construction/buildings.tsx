@@ -8,11 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
 
 const pngs: Record<string, any> = {
-  launchpad: require("../../../assets/images/launchpad.png"),
+  house: require("../../../assets/images/isometric-house.png"),
+  rocketlaunchpad: require("../../../assets/images/launchpad.png"),
+  excavator: require("../../../assets/images/excavate.png"),
 };
 
 export default function BuildingsScreen() {
-  const buildingSlots = useSelector((state: RootState) => state.buildings.buildingSlots);    
+  const buildingSlots = useSelector(
+    (state: RootState) => state.user.buildingSlots
+  );
   const [selected, setSelected] = useState<BuildingSlot>();
   const selectSlot = (pressedSlot: BuildingSlot) => {
     if (selected && selected.id === pressedSlot.id)
@@ -35,7 +39,9 @@ export default function BuildingsScreen() {
               key={slot.id}
               style={[
                 styles.buildingSlot,
-                slot.building && slot.building.name === "excavate" && styles.excavate,
+                slot.building &&
+                  slot.building.name === "excavate" &&
+                  styles.excavate,
                 selected?.id === slot.id && styles.selected,
               ]}
               onPress={() => selectSlot(slot)}
@@ -46,7 +52,9 @@ export default function BuildingsScreen() {
                     source={pngs[slot.building.name]}
                     style={styles.buildingIcon}
                   />
-                  <Text style={styles.buildingIconText}>{slot.building.label}</Text>
+                  <Text style={styles.buildingIconText}>
+                    {slot.building.label}
+                  </Text>
                 </View>
               )}
               {!slot.building && <Text style={styles.addText}>+</Text>}
@@ -63,10 +71,20 @@ export default function BuildingsScreen() {
           ]}
         >
           <Text style={GlobalStyles.title}>Building details</Text>
-          <View style={styles.buildingSlot}>
-            {/* {selected.building && (
-              <Text style={styles.text}>{selected.building}</Text>
-            )} */}
+          <View style={styles.buildingDetails}>
+            <View style={styles.buildingSlot}>
+              {selected.building && (
+                <View>
+                  <Image
+                    source={pngs[selected.building.name]}
+                    style={styles.buildingIcon}
+                  />
+                  <Text style={styles.buildingIconText}>
+                    {selected.building.label}
+                  </Text>
+                </View>
+              )}
+            </View>
           </View>
         </View>
       )}
@@ -96,6 +114,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "transparent",
     position: "relative",
+  },
+  buildingDetails: {
+    flexDirection: "row",
   },
   buildingIcon: {
     width: 100,
