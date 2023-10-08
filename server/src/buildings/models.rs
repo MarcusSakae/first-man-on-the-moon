@@ -34,6 +34,10 @@ impl Building {
         self.upgrades = upgrades;
         self
     }
+    pub fn name(mut self, name: &str) -> Self {
+        self.name = name.to_string();
+        self
+    }
     pub fn cost(mut self, cost: CostKind) -> Self {
         self.cost.push(cost);
         self

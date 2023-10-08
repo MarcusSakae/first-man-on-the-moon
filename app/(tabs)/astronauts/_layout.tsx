@@ -43,8 +43,6 @@ export default function TabLayout() {
           );
         }}
       >
-        {/* we use index for redirecting, since 'initialRouteName' is  broken-ish on expo-router */}
-        {/* https://github.com/expo/router/issues/428 */}
         <Tabs.Screen name="index" options={{ href: null }} />
         <Tabs.Screen name="roster" options={{ title: "Roster" }} />
         <Tabs.Screen

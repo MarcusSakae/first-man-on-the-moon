@@ -9,12 +9,9 @@ import { RootState } from "../../../state/store";
 import { StyledButton } from "../../../components/StyledButton";
 import { Picker } from "@react-native-picker/picker";
 import Toast from "react-native-toast-message";
-
-const pngs: Record<string, any> = {
-  house: require("../../../assets/images/isometric-house.png"),
-  rocketlaunchpad: require("../../../assets/images/launchpad.png"),
-  excavator: require("../../../assets/images/excavate.png"),
-};
+import GlobalImages from "../../../components/GlobalImages";
+import { BuildingDetails } from "../../../components/BuildingDetails";
+import { AddBuilding } from "../../../components/AddBuilding";
 
 export default function BuildingsScreen() {
   const buildingSlots = useSelector(
@@ -52,10 +49,10 @@ export default function BuildingsScreen() {
               {slot.building && (
                 <View>
                   <Image
-                    source={pngs[slot.building.name]}
-                    style={styles.buildingIcon}
+                    source={GlobalImages[slot.building.name]}
+                    style={GlobalStyles.buildingIcon}
                   />
-                  <Text style={styles.buildingIconText}>
+                  <Text style={GlobalStyles.buildingIconText}>
                     {slot.building.label}
                   </Text>
                 </View>
@@ -67,49 +64,9 @@ export default function BuildingsScreen() {
       </ScrollView>
 
       {selected && (
-        <View
-          style={[
-            GlobalStyles.partialContainer,
-            { backgroundColor: Colors.secondaryDark },
-          ]}
-        >
-          <Text style={GlobalStyles.title}>Building details</Text>
-          <View style={styles.buildingDetails}>
-            <View style={styles.buildingSlot}>
-              {selected.building && (
-                <View>
-                  <Image
-                    source={pngs[selected.building.name]}
-                    style={styles.buildingIcon}
-                  />
-                  <Text style={styles.buildingIconText}>
-                    {selected.building.label}
-                  </Text>
-                </View>
-              )}
-            </View>
-            <View style={{flexDirection:"row"}}>
-              <Picker
-                style={{
-                  color: "white",
-                  backgroundColor: "rgba(255,255,255,0.2)",
-                }}
-                selectedValue={"selectedMaterial"}
-                onValueChange={(value) => {}}
-              >
-                <Picker.Item label="Upgrades" value="blueprint" />
-              </Picker>
-
-              <StyledButton
-                text="Upgrade"
-                onPress={() =>
-                  Toast.show({
-                    text1: "Astronauts",
-                  })
-                }
-              />
-            </View>
-          </View>
+        <View style={[GlobalStyles.partialContainer]}>
+          {selected && selected.building && <BuildingDetails slot={selected} />}
+          {selected && !selected.building && <AddBuilding />}
         </View>
       )}
     </View>
@@ -142,21 +99,7 @@ const styles = StyleSheet.create({
   buildingDetails: {
     flexDirection: "row",
   },
-  buildingIcon: {
-    width: 100,
-    height: 100,
-    resizeMode: "contain",
-  },
-  buildingIconText: {
-    position: "absolute",
-    bottom: 0,
-    paddingBottom: 4,
-    width: "100%",
-    textAlign: "center",
-    backgroundColor: "#000000cc",
-    color: "white",
-    fontSize: 16,
-  },
+
   excavate: {
     borderStyle: "dashed",
     borderWidth: 2,

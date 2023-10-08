@@ -1,6 +1,8 @@
-import { Redirect } from "expo-router";
+import { Text } from "../../components/Themed";
+import { useFocusEffect, useRouter } from "expo-router";
 
-const Index = () => {
-  return <Redirect href="/construction/buildings" />;
-};
-export default Index;
+export default function Index() {
+  const router = useRouter();
+  useFocusEffect(() => router.replace("/construction"));
+  return <Text>Index</Text>;
+}

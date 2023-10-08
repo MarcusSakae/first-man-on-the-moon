@@ -3,7 +3,7 @@ import { Link, Tabs } from "expo-router";
 import { Image, Pressable, StyleSheet, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
-import { Text, View } from "../../components/Themed";
+import GlobalImages from "../../components/GlobalImages";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -14,11 +14,6 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
-
-const homePng = require("../../assets/images/home.png");
-const hammerPng = require("../../assets/images/hammer.png");
-const astrosPng = require("../../assets/images/astronaut2.png");
-const economyPng = require("../../assets/images/economy1.png");
 
 export default function BuildScreen() {
   const colorScheme = useColorScheme();
@@ -32,15 +27,15 @@ export default function BuildScreen() {
           tabBarActiveTintColor: Colors[colorScheme ?? "dark"].tint,
         }}
       >
-        {/* we use index for redirecting, since 'initialRouteName' is  broken-ish on expo-router */}
-        {/* https://github.com/expo/router/issues/428 */}
         <Tabs.Screen name="index" options={{ href: null }} />
         <Tabs.Screen
           name="home"
           options={{
             title: "Home",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#101a29" },
-            tabBarIcon: () => <Image source={homePng} style={styles.icon} />,
+            tabBarIcon: () => (
+              <Image source={GlobalImages["homeIcon"]} style={styles.icon} />
+            ),
           }}
         />
         <Tabs.Screen
@@ -48,7 +43,9 @@ export default function BuildScreen() {
           options={{
             title: "Build",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#14110f" },
-            tabBarIcon: () => <Image source={hammerPng} style={styles.icon} />,
+            tabBarIcon: () => (
+              <Image source={GlobalImages["hammerIcon"]} style={styles.icon} />
+            ),
           }}
         />
 
@@ -57,7 +54,9 @@ export default function BuildScreen() {
           options={{
             title: "Astronauts",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#010101" },
-            tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
+            tabBarIcon: () => (
+              <Image source={GlobalImages["astrosIcon"]} style={styles.icon} />
+            ),
           }}
         />
 
@@ -66,14 +65,18 @@ export default function BuildScreen() {
           options={{
             title: "Economy",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#072b4d" },
-            tabBarIcon: () => <Image source={economyPng} style={styles.icon} />,
+            tabBarIcon: () => (
+              <Image source={GlobalImages["economyIcon"]} style={styles.icon} />
+            ),
           }}
         />
         <Tabs.Screen
           name="gather"
           options={{
             title: "Gather",
-            tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
+            tabBarIcon: () => (
+              <Image source={GlobalImages["astrosPng"]} style={styles.icon} />
+            ),
           }}
         />
         <Tabs.Screen
@@ -81,7 +84,9 @@ export default function BuildScreen() {
           options={{
             href: null,
             title: "Research",
-            tabBarIcon: () => <Image source={astrosPng} style={styles.icon} />,
+            tabBarIcon: () => (
+              <Image source={GlobalImages["astrosPng"]} style={styles.icon} />
+            ),
           }}
         />
       </Tabs>

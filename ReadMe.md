@@ -18,6 +18,18 @@ npm install
 npx expo start
 ```
 
+## server
+Can be started from the /server folder
+Requires rust and cargo.
+```
+cargo run
+```
+The API_URL needs to be updated inside /.env
+```
+API_URL=http://123.123.123.123:8000
+```
+Note that this will never be localhost, as the server is not running on the mobile device.
+
 
 ## Slides 
 [slides](https://docs.google.com/presentation/d/1Z3guVkzaWdLW5O781pxTtSqNE0-tGwqQRF7QLoWiIfQ/edit#slide=id.gc6f980f91_0_0)
@@ -66,3 +78,9 @@ lista över genomförda krav.
 - [x] 2. Ytterligare en valfri extern modul används i projektet.
 - [x] 3. Appen ska prata med ett Web-API för att hämta data.
 - [soon] 4. Appen ska laseras på en Appstore (Deadline samma dag som kursen slutar)
+
+
+
+
+## Todos
+- buy upgrades, unlock tab. 

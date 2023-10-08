@@ -2,7 +2,7 @@ use axum::{response::IntoResponse, Extension, Json};
 use serde_json::json;
 use uuid::Uuid;
 
-use crate::buildings::default_buildings;
+use crate::buildings::available_to_build;
 
 use super::model::Session;
 
@@ -24,7 +24,7 @@ pub async fn generate(Extension(session): Extension<Session>) -> impl IntoRespon
     let mut session = session.unwrap();
 
     session.id = Uuid::new_v4().to_string();
-    session.available_buildings = default_buildings();
+    session.available_to_build = available_to_build();
 
     Json(json!({ "message": "New game session generated!", "session": session.id}))
 }
