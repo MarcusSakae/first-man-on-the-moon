@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import funds from "./fundsSlice";
-import buildings from "./buildingsSlice";
+import buildings, { fetchBuildings } from "./buildingsSlice";
 import user, { fetchUser } from "./userSlice";
 import loading from "./loadingSlice";
 import rocket from "./rocketSlice";
@@ -23,3 +23,4 @@ export type AppDispatch = typeof store.dispatch;
 export default store;
 
 store.dispatch(fetchUser());
+store.dispatch(fetchBuildings());

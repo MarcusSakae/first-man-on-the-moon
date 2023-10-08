@@ -34,6 +34,7 @@ export default StyleSheet.create({
     paddingVertical: 5,
     width: "100%",
     right: 0,
+    height: 100,
   },
   buildingSlot: {
     borderColor: "#ccc",

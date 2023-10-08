@@ -20,5 +20,14 @@ export default {
   primaryDark: "#caa80d",
   secondary: "#0f1e37",
   secondaryLight: "#1f3f73",
+  secondaryLighter: "#2f5eaa",
   secondaryDark: "#0a1323",
+  // tomato
+  warning: "#942a12",
+  warningDark: "#6a1e0d",
+  warningLight: "#b53c1a",
+  warningLighter: "#d95a2a",
+
+  // neutral
+  neutral: "#cccccc",
 };

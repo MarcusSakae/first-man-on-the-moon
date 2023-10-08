@@ -27,7 +27,6 @@ export const fetchBuildings = createAsyncThunk(
 const buildingsSlice = createSlice({
   name: "buildings",
   initialState: {
-    buildingSlots: [] as BuildingSlot[],
     availableBuildings: [] as Building[],
     isLoading: false,
   },
@@ -38,7 +37,7 @@ const buildingsSlice = createSlice({
     });
     builder.addCase(fetchBuildings.fulfilled, (state, action) => {
       if (action.payload) {
-        state.buildingSlots.push(...action.payload);
+        state.availableBuildings.push(...action.payload);
         state.isLoading = false;
       }
     });

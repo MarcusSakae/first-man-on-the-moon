@@ -5,6 +5,12 @@ const { getDefaultConfig } = require('expo/metro-config');
 const config = getDefaultConfig(__dirname, {
   // [Web-only]: Enables CSS support in Metro.
   isCSSEnabled: true,
+  watcher: {
+    watchman: {
+      ignore_dirs: ["server"]
+    }
+  }
+
 });
 
 config.resolver.assetExts.push('lottie');

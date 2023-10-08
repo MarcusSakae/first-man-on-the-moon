@@ -1,3 +1,4 @@
 {
-    "typescript.experimental.aiQuickFix": true
+    "typescript.experimental.aiQuickFix": true,
+    "prettier.printWidth": 120
 }

@@ -1,13 +1,7 @@
-import {
-  Image,
-  GestureResponderEvent,
-  Pressable,
-  StyleSheet,
-} from "react-native";
+import { Image, GestureResponderEvent, Pressable, StyleSheet } from "react-native";
 import { Text } from "./Themed";
 import Colors from "../constants/Colors";
 import GlobalImages from "./GlobalImages";
-
 
 export function DrawerButton(props: {
   text: string;
@@ -16,9 +10,9 @@ export function DrawerButton(props: {
 }) {
   let text = props.text.substring(0, 1).toUpperCase() + props.text.substring(1);
   if (props.text == "forhire") {
-    text = "Available\nCandidates";
+    text = "Candidates";
   }
-  let image = GlobalImages[props.text + 'Button'];
+  let image = GlobalImages[props.text + "Button"];
 
   return (
     <Pressable
@@ -46,16 +40,18 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     backgroundColor: "#08070a",
+    height: "100%",
+    overflow: "hidden",
   },
   drawerImage: {
-    width: 128,
-    height: 128,
+    height: "100%",
+    aspectRatio: 1,
     resizeMode: "contain",
   },
   drawerText: {
     color: "#fff",
-    fontSize: 16,
-    paddingBottom: 10,
+    fontSize: 14,
+    paddingBottom: 2,
     position: "absolute",
     textAlign: "center",
     bottom: 0,

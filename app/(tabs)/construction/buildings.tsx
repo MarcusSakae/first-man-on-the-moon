@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
+import { AddBuilding } from "../../../components/AddBuilding";
+import { BuildingDetails } from "../../../components/BuildingDetails";
+import GlobalImages from "../../../components/GlobalImages";
 import GlobalStyles from "../../../components/GlobalStyles";
 import { Text, View } from "../../../components/Themed";
 import Colors from "../../../constants/Colors";
 import { BuildingSlot } from "../../../models/building";
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
-import { StyledButton } from "../../../components/StyledButton";
-import { Picker } from "@react-native-picker/picker";
-import Toast from "react-native-toast-message";
-import GlobalImages from "../../../components/GlobalImages";
-import { BuildingDetails } from "../../../components/BuildingDetails";
-import { AddBuilding } from "../../../components/AddBuilding";
 
 export default function BuildingsScreen() {
   const buildingSlots = useSelector(
