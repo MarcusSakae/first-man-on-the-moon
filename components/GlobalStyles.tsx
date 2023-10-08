@@ -11,7 +11,7 @@ export default StyleSheet.create({
     alignItems: "stretch",
   },
   partialContainer: {
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.secondaryDark,
     padding: 10,
   },
   title: {
@@ -34,5 +34,32 @@ export default StyleSheet.create({
     paddingVertical: 5,
     width: "100%",
     right: 0,
+  },
+  buildingSlot: {
+    borderColor: "#ccc",
+    overflow: "hidden",
+    borderWidth: 1,
+    margin: 5,
+    width: 100,
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    position: "relative",
+  },
+  buildingIcon: {
+    width: 100,
+    height: 100,
+    resizeMode: "contain",
+  },
+  buildingIconText: {
+    position: "absolute",
+    bottom: 0,
+    paddingBottom: 4,
+    width: "100%",
+    textAlign: "center",
+    backgroundColor: "#000000cc",
+    color: "white",
+    fontSize: 16,
   },
 });

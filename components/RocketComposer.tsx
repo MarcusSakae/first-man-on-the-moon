@@ -1,17 +1,12 @@
-import {
-  ImageBackground,
-  ImageSourcePropType,
-  ImageStyle,
-  StyleSheet,
-} from "react-native";
+import { ImageBackground, ImageStyle, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { View, Text } from "../components/Themed";
 import { StyledSlider } from "../components/StyledSlider";
 import { StyledButton } from "../components/StyledButton";
 import Colors from "../constants/Colors";
-import { StyledRangeSlider } from "../components/StyledRangeSlider";
 import { useState } from "react";
 import GlobalStyles from "./GlobalStyles";
+import GlobalImages from "./GlobalImages";
 
 interface RocketSize {
   label: string;
@@ -32,19 +27,6 @@ const wallThicknesses: RocketSize[] = [
   { label: "Superthick", style: { height: "100%", top: "0%" } },
 ];
 
-const pngs: Record<string, ImageSourcePropType> = {
-  blueprint: require("../assets/images/blueprint.png"),
-  copper: require("../assets/images/rocket-copper.png"),
-  crystal: require("../assets/images/rocket-crystal.png"),
-  glass: require("../assets/images/rocket-glass.png"),
-  iron: require("../assets/images/rocket-iron.png"),
-  sand: require("../assets/images/rocket-sand.png"),
-  silver: require("../assets/images/rocket-silver.png"),
-  steel: require("../assets/images/rocket-steel.png"),
-  stone: require("../assets/images/rocket-stone.png"),
-  wood: require("../assets/images/rocket-wood.png"),
-};
-
 export default function RocketComposer(props: { onCommit: () => void }) {
   const [size, setSize] = useState<RocketSize>(rocketSizes[4]);
   const [thickness, setThickness] = useState<RocketSize>(wallThicknesses[0]);
@@ -52,7 +34,7 @@ export default function RocketComposer(props: { onCommit: () => void }) {
   const [bg, setBg] = useState("blueprint");
   return (
     <ImageBackground
-      source={pngs[bg]}
+      source={GlobalImages[bg]}
       style={[
         GlobalStyles.contentContainer,
         { flexDirection: "row", justifyContent: "flex-end" },

@@ -6,14 +6,8 @@ import {
 } from "react-native";
 import { Text } from "./Themed";
 import Colors from "../constants/Colors";
+import GlobalImages from "./GlobalImages";
 
-const pngs: Record<string, any> = {
-  rocket: require("../assets/images/rocket.png"),
-  buildings: require("../assets/images/buildings.png"),
-  forhire: require("../assets/images/forhire.png"),
-  roster: require("../assets/images/roster.png"),
-  launch: require("../assets/images/redbutton.png"),
-};
 
 export function DrawerButton(props: {
   text: string;
@@ -24,6 +18,7 @@ export function DrawerButton(props: {
   if (props.text == "forhire") {
     text = "Available\nCandidates";
   }
+  let image = GlobalImages[props.text + 'Button'];
 
   return (
     <Pressable
@@ -34,7 +29,7 @@ export function DrawerButton(props: {
         { borderColor: props.isActive ? Colors.primary : "#666" },
       ]}
     >
-      <Image source={pngs[props.text]} style={styles.drawerImage} />
+      <Image source={image} style={styles.drawerImage} />
       <Text style={styles.drawerText}>{text}</Text>
     </Pressable>
   );
