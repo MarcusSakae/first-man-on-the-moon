@@ -17,12 +17,17 @@ export default StyleSheet.create({
   title: {
     color: Colors.primary,
     paddingVertical: 5,
+    fontSize: 16,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     borderBottomColor: Colors.primary,
     borderBottomWidth: 1,
     textAlign: "right",
     marginVertical: 5,
+  },
+  description: {
+    color: Colors.neutral,
+    fontStyle: "italic",
   },
   navContainer: {
     flexDirection: "row",
@@ -62,5 +67,18 @@ export default StyleSheet.create({
     backgroundColor: "#000000cc",
     color: "white",
     fontSize: 16,
+  },
+  actionsContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    padding: 5,
+    marginBottom: 5,
+  },
+  addItemText: {
+    color: "#999999",
+    fontSize: 48,
+    fontFamily: "monospace",
   },
 });

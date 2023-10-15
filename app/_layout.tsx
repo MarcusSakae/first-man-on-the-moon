@@ -45,10 +45,10 @@ function RootLayoutNav() {
       <StatusBar hidden={true} />
       <Provider store={store}>
         <ResourceBar />
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-        </Stack>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+          </Stack>
         <Toast position="bottom" config={toastConfig} onPress={Toast.hide} />
       </Provider>
     </ThemeProvider>

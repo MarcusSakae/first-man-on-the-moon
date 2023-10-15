@@ -1,18 +1,20 @@
-import { Pressable, StyleSheet, Text } from "react-native";
-import { View } from "./Themed";
-import { useSelector } from "react-redux";
-import { RootState } from "../state/store";
 import { useState } from "react";
-import { Building } from "../models/building";
+import { Pressable, StyleSheet, Text } from "react-native";
 import Colors from "../constants/Colors";
+import { Building } from "../models/building";
+import { useAppSelector } from "../state/store";
+import GlobalStyles from "./GlobalStyles";
 import { StyledButton } from "./StyledButton";
+import { View } from "./Themed";
 
-export function AddBuilding() {
+type BuldingAddProps = { onBuildPress: (building: Building) => void; onCancelPress: () => void };
+
+export function BuildingAdd({ onBuildPress, onCancelPress }: BuldingAddProps) {
   const [selected, setSelected] = useState<Building>();
-  const buildings = useSelector((state: RootState) => state.buildings.availableBuildings);
+  const buildings = useAppSelector((state) => state.buildings.availableBuildings);
   return (
     <>
-      <View style={styles.buildingDetails}>
+      <View style={GlobalStyles.actionsContainer}>
         {buildings.map((building) => {
           return (
             <Pressable
@@ -26,19 +28,23 @@ export function AddBuilding() {
         })}
       </View>
       <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 10 }}>
-        <StyledButton text="Cancel" type="cancel" onPress={() => {}} />
-        <StyledButton text="Build" disabled={!selected} onPress={() => setSelected(undefined)} />
+        <StyledButton
+          text="Build"
+          disabled={!selected}
+          onPress={() => {
+            if (selected) {
+              onBuildPress(selected);
+              setSelected(undefined);
+            }
+          }}
+        />
+        <StyledButton text="Cancel" type="cancel" onPress={onCancelPress} />
       </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  buildingDetails: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-  },
   itemText: {
     color: "white",
   },

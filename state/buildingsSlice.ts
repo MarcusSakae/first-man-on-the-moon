@@ -1,28 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Building, BuildingSlot } from "../models/building";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import Toast from "react-native-toast-message";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Building } from "../models/building";
 import { apiFetch } from "../utils/client";
 
-export const fetchBuildings = createAsyncThunk(
-  "buildings/fetch",
-  async (_: void, { dispatch }) => {
-    try {
-      dispatch({ type: "loading/startLoading" });
-      let response = await apiFetch(`/buildings`);
-      return response.json();
-    } catch (e) {
-      console.log("erro", e);
-      Toast.show({
-        type: "error",
-        text1: "Error fetching buildings",
-        text2: "Please try again later",
-      });
-    } finally {
-      dispatch({ type: "loading/stopLoading" });
-    }
-  }
-);
+export const fetchBuildings = createAsyncThunk<Building[]>("buildings/fetch", async (_: void) => {
+  let response = await apiFetch(`/buildings`);
+  return response.json();
+});
 
 const buildingsSlice = createSlice({
   name: "buildings",

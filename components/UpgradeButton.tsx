@@ -6,22 +6,22 @@ import Colors from "../constants/Colors";
 type StyleButtonProps = {
   onPress: (event: GestureResponderEvent) => void;
   text: string;
-  type?: "primary" | "cancel";
   disabled?: boolean;
 };
-export function StyledButton({ onPress, text, type = "primary", disabled }: StyleButtonProps) {
+export function UpgradeButton({ onPress, text, disabled }: StyleButtonProps) {
   return (
     <Pressable
       style={({ pressed }) => [
         styles.button,
-        type === "cancel" && styles.buttonCancel,
         pressed && !disabled && styles.buttonPressed,
-        pressed && type === "cancel" && !disabled && styles.buttonPressedCancel,
         disabled && styles.buttonDisabled,
       ]}
       onPress={onPress}
     >
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>
+        Upgrade to&nbsp;
+        <Text style={styles.textPrimary}>{text}</Text>
+      </Text>
     </Pressable>
   );
 }
@@ -40,15 +40,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondaryLight,
     borderColor: Colors.neutral,
   },
-  buttonCancel: {
-    backgroundColor: Colors.warningDark,
-  },
   buttonPressed: {
     backgroundColor: Colors.secondaryLighter,
     borderColor: Colors.primary,
-  },
-  buttonPressedCancel: {
-    backgroundColor: Colors.warning,
   },
   buttonDisabled: {
     opacity: 0.5,
@@ -58,5 +52,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     textAlign: "center",
+  },
+  textPrimary: {
+    color: Colors.primary,
+    fontWeight: "bold",
   },
 });

@@ -1,22 +1,21 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
-import { Image, Pressable, StyleSheet, useColorScheme } from "react-native";
+import { Tabs } from "expo-router";
+import { Image, StyleSheet, useColorScheme } from "react-native";
 
-import Colors from "../../constants/Colors";
 import GlobalImages from "../../components/GlobalImages";
+import Colors from "../../constants/Colors";
+import { useAppSelector } from "../../state/store";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
+function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>["name"]; color: string }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
 export default function BuildScreen() {
   const colorScheme = useColorScheme();
+  const tabs = useAppSelector((state) => state.user.availableTabs);
 
   return (
     <>
@@ -24,7 +23,8 @@ export default function BuildScreen() {
         screenOptions={{
           headerShown: false,
           tabBarItemStyle: styles.tabline,
-          tabBarActiveTintColor: Colors[colorScheme ?? "dark"].tint,
+          tabBarActiveTintColor: Colors.primary,
+          tabBarActiveBackgroundColor: "#fff"
         }}
       >
         <Tabs.Screen name="index" options={{ href: null }} />
@@ -33,9 +33,7 @@ export default function BuildScreen() {
           options={{
             title: "Home",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#101a29" },
-            tabBarIcon: () => (
-              <Image source={GlobalImages["homeIcon"]} style={styles.icon} />
-            ),
+            tabBarIcon: () => <Image source={GlobalImages["homeIcon"]} style={styles.icon} />,
           }}
         />
         <Tabs.Screen
@@ -43,9 +41,7 @@ export default function BuildScreen() {
           options={{
             title: "Build",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#14110f" },
-            tabBarIcon: () => (
-              <Image source={GlobalImages["hammerIcon"]} style={styles.icon} />
-            ),
+            tabBarIcon: () => <Image source={GlobalImages["hammerIcon"]} style={styles.icon} />,
           }}
         />
 
@@ -53,10 +49,11 @@ export default function BuildScreen() {
           name="astronauts"
           options={{
             title: "Astronauts",
+            href: tabs.includes("astronauts") ? "astronauts" : null,
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#010101" },
-            tabBarIcon: () => (
-              <Image source={GlobalImages["astrosIcon"]} style={styles.icon} />
-            ),
+            tabBarIcon: () => <Image source={GlobalImages["astrosIcon"]} style={styles.icon} />,
+            tabBarBadge: 3,
+            tabBarBadgeStyle: { backgroundColor: Colors.primary, color: "#000" },
           }}
         />
 
@@ -65,18 +62,15 @@ export default function BuildScreen() {
           options={{
             title: "Economy",
             tabBarItemStyle: { ...styles.tabline, backgroundColor: "#072b4d" },
-            tabBarIcon: () => (
-              <Image source={GlobalImages["economyIcon"]} style={styles.icon} />
-            ),
+            tabBarIcon: () => <Image source={GlobalImages["economyIcon"]} style={styles.icon} />,
           }}
         />
         <Tabs.Screen
           name="gather"
           options={{
             title: "Gather",
-            tabBarIcon: () => (
-              <Image source={GlobalImages["astrosPng"]} style={styles.icon} />
-            ),
+            href: tabs.includes("gather") ? "gather" : null,
+            tabBarIcon: () => <Image source={GlobalImages["astrosPng"]} style={styles.icon} />,
           }}
         />
         <Tabs.Screen
@@ -84,9 +78,7 @@ export default function BuildScreen() {
           options={{
             href: null,
             title: "Research",
-            tabBarIcon: () => (
-              <Image source={GlobalImages["astrosPng"]} style={styles.icon} />
-            ),
+            tabBarIcon: () => <Image source={GlobalImages["astrosPng"]} style={styles.icon} />,
           }}
         />
       </Tabs>

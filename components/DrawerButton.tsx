@@ -9,9 +9,6 @@ export function DrawerButton(props: {
   onPress: (event: GestureResponderEvent) => void;
 }) {
   let text = props.text.substring(0, 1).toUpperCase() + props.text.substring(1);
-  if (props.text == "forhire") {
-    text = "Candidates";
-  }
   let image = GlobalImages[props.text + "Button"];
 
   return (

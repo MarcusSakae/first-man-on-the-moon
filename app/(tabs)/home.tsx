@@ -80,8 +80,8 @@ export default function HomeScreen() {
     scene.add(spotLight);
 
     rocket = await loadObjAsync({
-      asset: require("../../assets/models/rocket.obj"),
-      mtlAsset: require("../../assets/models/rocket.mtl"),
+      asset: require("../../assets/models/rocketobj.obj"),
+      mtlAsset: require("../../assets/models/rocketmtl.mtl"),
     });
 
     rocket.scale.set(1, 1, 1);

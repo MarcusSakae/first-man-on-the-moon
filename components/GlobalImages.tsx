@@ -2,8 +2,9 @@ import { ImageSourcePropType } from "react-native";
 const ASSET_PATH = "../assets/images";
 
 export default {
+  // Buildings
   house: require(`${ASSET_PATH}/isometric-house.png`),
-  rocketlaunchpad: require(`${ASSET_PATH}/launchpad.png`),
+  launchpad: require(`${ASSET_PATH}/launchpad.png`),
   excavator: require(`${ASSET_PATH}/excavate.png`),
 
   // Main navigation
@@ -15,7 +16,7 @@ export default {
   // Drawer buttons
   rocketButton: require(`${ASSET_PATH}/rocket.png`),
   buildingsButton: require(`${ASSET_PATH}/buildings.png`),
-  forhireButton: require(`${ASSET_PATH}/forhire.png`),
+  candidatesButton: require(`${ASSET_PATH}/candidates.png`),
   rosterButton: require(`${ASSET_PATH}/roster.png`),
   launchButton: require(`${ASSET_PATH}/redbutton.png`),
 
@@ -30,4 +31,7 @@ export default {
   steel: require(`${ASSET_PATH}/rocket-steel.png`),
   stone: require(`${ASSET_PATH}/rocket-stone.png`),
   wood: require(`${ASSET_PATH}/rocket-wood.png`),
+
+  // other
+  astronaut: require(`${ASSET_PATH}/astronaut.png`),
 } as Record<string, ImageSourcePropType>;

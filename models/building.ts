@@ -8,14 +8,21 @@ export interface BuildingCost {
   iron?: number;
 }
 
+export interface AstronautSlot {
+  id: string;
+  astronaut_id?: string;
+}
+
 export interface Building {
   id: string;
   name: string;
+  kind: string;
   label: string;
   description: string;
   cost: BuildingCost[];
-  timeMultiplier?: number;
+  time_multiplier?: number;
   upgrades: Building[];
+  astronaut_slots: AstronautSlot[];
 }
 
 export interface BuildingSlot {
