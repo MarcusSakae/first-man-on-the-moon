@@ -3,12 +3,14 @@ use darkbird::document::RangeField;
 use serde::Deserialize;
 use serde::Serialize;
 
+use crate::buildings::AstronautSlot;
 use crate::buildings::BuildingSlot;
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct UserData {
-    device_id: String,
+    pub device_id: String,
     pub building_slots: Vec<BuildingSlot>,
+    pub astronaut_slots: Vec<AstronautSlot>,
 }
 
 impl UserData {
@@ -16,9 +18,26 @@ impl UserData {
         UserData {
             device_id: device_id.to_string(),
             building_slots: vec![],
+            astronaut_slots: vec![],
         }
     }
+    // Recalculates fields that *should* not be stored
+    // For now we want astronaut_slots to be an aggregated list of all building_slots->building->astronaut_slots
+    pub fn populate(&mut self) {
+        self.astronaut_slots = self.building_slots.iter().fold(vec![], |mut acc, slot| {
+            if let Some(building) = &slot.building {
+                acc.extend(building.astronaut_slots.clone());
+            }
+            acc
+        });
+    }
 }
+
+// ---------------
+//
+// Below is not used but to satisfy the document::Document trait
+//
+// ---------------
 
 impl document::Document for UserData {}
 

@@ -8,7 +8,8 @@ import { Text, View } from "../../../components/Themed";
 import Colors from "../../../constants/Colors";
 import { BuildingSlot } from "../../../models/building";
 import { useAppDispatch, useAppSelector } from "../../../state/store";
-import { createBuilding, demolishBuildingInSlot } from "../../../state/userSlice/userSlice";
+import {  demolishBuildingInSlot } from "../../../state/userSlice/userSlice";
+import { createBuilding } from "../../../state/userSlice/thunks";
 
 export default function BuildingsScreen() {
   const buildingSlots = useAppSelector((state) => state.user.buildingSlots);

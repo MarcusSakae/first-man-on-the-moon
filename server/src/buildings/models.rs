@@ -14,6 +14,8 @@ pub enum BuildingKind {
     None,
 }
 
+
+
 #[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct AstronautSlot {
     pub id: String,

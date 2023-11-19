@@ -15,18 +15,20 @@ export enum Task {
   Drone,
 }
 
-export interface Skills {
-  rocketScience: number;
-  construction: number;
-  coding: number;
+export interface Stats {
+  strength: number;
+  mind: number;
+  speed: number;
+  charisma: number;
   piloting: number;
-  fitness: number;
+  size: number;
 }
 
 export interface Astronaut {
   id: string;
   name: string;
-  skills: Skills;
-  task: Task;
-  study: StudySubject;
+  stats: Stats;
+  // task: Task;
+  // study: StudySubject;
+  hire_cost: number;
 }

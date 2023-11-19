@@ -7,7 +7,10 @@ import GlobalStyles from "./GlobalStyles";
 import { StyledButton } from "./StyledButton";
 import { View } from "./Themed";
 
-type BuldingAddProps = { onBuildPress: (building: Building) => void; onCancelPress: () => void };
+type BuldingAddProps = {
+  onBuildPress: (building: Building) => void;
+  onCancelPress: () => void;
+};
 
 export function BuildingAdd({ onBuildPress, onCancelPress }: BuldingAddProps) {
   const [selected, setSelected] = useState<Building>();

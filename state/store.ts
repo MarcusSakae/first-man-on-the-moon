@@ -1,14 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { combineReducers } from "redux";
+import astronaut from "./astronautSlice";
+import buildings from "./buildingsSlice";
 import funds from "./fundsSlice";
-import buildings, { fetchBuildings } from "./buildingsSlice";
-import user, { fetchUser } from "./userSlice/userSlice";
 import loading from "./loadingSlice";
 import rocket from "./rocketSlice";
-import { combineReducers } from "redux";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import user from "./userSlice/userSlice";
+import { onAppLoad } from "./userSlice/thunks";
 
 export const rootReducer = combineReducers({
   user,
+  astronaut,
   funds,
   buildings,
   loading,
@@ -26,5 +29,4 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export default store;
 
-store.dispatch(fetchUser());
-store.dispatch(fetchBuildings());
+store.dispatch(onAppLoad());

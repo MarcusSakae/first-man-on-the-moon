@@ -16,3 +16,5 @@ uuid = { version = "1.4.1", features = ["v4", "serde"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 darkbird = "6.1.8"
+anarchist-readable-name-generator-lib = "0.1.1"
+rand = "0.8.4"

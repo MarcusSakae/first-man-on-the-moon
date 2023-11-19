@@ -1,14 +1,8 @@
-import {
-  BaseToast,
-  BaseToastProps,
-  ErrorToast,
-} from "react-native-toast-message";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { BaseToastProps, ErrorToast } from "react-native-toast-message";
 import Colors from "../constants/Colors";
-// import vector icons
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Text, View } from "./Themed";
 import { Pressable } from "react-native";
+import { Text } from "./Themed";
 
 export const toastConfig = {
   /*

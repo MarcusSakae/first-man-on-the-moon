@@ -3,8 +3,7 @@ import { Building } from "../models/building";
 import { apiFetch } from "../utils/client";
 
 export const fetchBuildings = createAsyncThunk<Building[]>("buildings/fetch", async (_: void) => {
-  let response = await apiFetch(`/buildings`);
-  return response.json();
+  return apiFetch(`/buildings`);
 });
 
 const buildingsSlice = createSlice({

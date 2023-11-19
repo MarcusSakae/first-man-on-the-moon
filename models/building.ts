@@ -1,3 +1,5 @@
+import { Astronaut } from "./astronaut";
+
 /**
  * Types
  */
@@ -11,6 +13,7 @@ export interface BuildingCost {
 export interface AstronautSlot {
   id: string;
   astronaut_id?: string;
+  astronaut?: Astronaut;
 }
 
 export interface Building {

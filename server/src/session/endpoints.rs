@@ -2,26 +2,27 @@ use axum::{response::IntoResponse, Extension, Json};
 use serde_json::json;
 use uuid::Uuid;
 
-use crate::buildings::available_to_build;
+use crate::{buildings::available_to_build, lockmacro::lock_session, StorageExt};
 
 use super::model::Session;
 
 pub async fn get(Extension(session): Extension<Session>) -> impl IntoResponse {
-    let session = session.try_lock();
-    if session.is_err() {
-        return Json(serde_json::json!({"error": "Could not lock session"}));
-    }
-    let session = session.unwrap();
+    let session = lock_session!(session);
 
     Json(json!(session.id))
 }
 
-pub async fn generate(Extension(session): Extension<Session>) -> impl IntoResponse {
-    let session = session.try_lock();
-    if session.is_err() {
-        return Json(serde_json::json!({"error": "Could not lock session"}));
+pub async fn generate(
+    Extension(session): Extension<Session>,
+    Extension(storage): StorageExt,
+) -> impl IntoResponse {
+    println!("!!! Generating new session, removing all users!!!");
+    let mut session = lock_session!(session);
+
+    // clear all users
+    for user in storage.iter() {
+        storage.remove(user.key().clone()).await.unwrap();
     }
-    let mut session = session.unwrap();
 
     session.id = Uuid::new_v4().to_string();
     session.available_to_build = available_to_build();
